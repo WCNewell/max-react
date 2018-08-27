@@ -1,4 +1,4 @@
-This project is a code along with Max Schwarzmueller React Course on Udemy.
+This project is a code along with Max Schwarzmueller React Course on Udemy, restarting in August 2018.
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
