@@ -12,4 +12,4 @@ const person = ( props ) => {
     )
 };
 
-export default person;
+export default (person);
