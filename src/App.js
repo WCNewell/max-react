@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Person from './Person/Person'
+// import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 // import Radium, { StyleRoot }from 'radium';
 
 class App extends Component {
@@ -50,16 +51,8 @@ class App extends Component {
   }
   
   render() {
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-    }
-
     let persons = null;
+    let btnClass = '';
 
     if ( this.state.showPersons ) {
       persons = (
@@ -69,12 +62,12 @@ class App extends Component {
               click={() => this.deletePersonHandler(index)}
               name={person.name}
               age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
+              changed = {(event) => this.nameChangedHandler(event, person.id)}
+              key = {person.id} />
           })}
         </div>
       )
-      style.backgroundColor = 'red';
+      btnClass = classes.Red;
     }
 
     const assignedClasses = [];
@@ -85,13 +78,12 @@ class App extends Component {
       assignedClasses.push(classes.bold); // classes = ['red', bold']
     }
 
-
     return (
         <div className={classes.App}>
           <h1>Hi, I'm a React App</h1>
           <p className={assignedClasses.join(' ')}>This is really working!</p>
           <button
-            style={style}
+            className={btnClass}
             onClick={this.togglePersonsHandler}>Toggle Persons
           </button>
           { persons }
