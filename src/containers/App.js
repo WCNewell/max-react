@@ -7,6 +7,12 @@ import React, { PureComponent } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons'
 import Cockpit from '../components/Cockpit/Cockpit'
+import Aux from '../hoc/Aux'
+import withClass from '../hoc/withClass'
+
+export const AuthContext = React.createContext(false);
+
+// import WithClass from '../hoc/WithClass'
 
 // import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 // import Radium, { StyleRoot }from 'radium';
@@ -27,7 +33,9 @@ class App extends PureComponent {
         { id: 'djdjd', name: 'Stephi', age: 26 }
       ],
       otherState: 'some other value',
-      showPersons: false
+      showPersons: false,
+      toggleClicked: 0,
+      authenticated: false
     }
   }
 
@@ -50,6 +58,21 @@ class App extends PureComponent {
     console.log('[UPDATE App.js] Inside componentWillUpdate', nextProps, nextState)
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(
+      '[UPDATE App.js] Inside getDerivedStateFromProps',
+      nextProps,
+      prevState
+    )
+    return prevState;
+  }
+
+  // use to save users scrolling positions before new list items are added
+  getSnapshotBeforeUpdate() {
+    console.log('[UPDATE App.js] Inside getSnapshotBeforeUpdate')
+  }
+
+  // use to scroll user back to thier positino after new list items have been added
   componentDidUpdate() {
     console.log('[UPDATE App.js] Inside componentDidUpdate')
   }
@@ -91,14 +114,21 @@ class App extends PureComponent {
 
     const persons = [...this.state.persons]
     persons.splice(personIndex, 1);
-    this.setState({
-      persons: persons
-    });
+    this.setState({ persons: persons });
   }
 
   togglePersonsHandler = () => {
      const doesShow = this.state.showPersons;
-     this.setState({showPersons: !doesShow})
+     this.setState( (prevState, props) => {
+       return {
+        showPersons: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+       }
+      })
+  }
+
+  loginHandler = () => {
+    this.setState({ authenticated: true })
   }
   
   render() {
@@ -113,18 +143,21 @@ class App extends PureComponent {
     }
 
     return (
-        <div className={classes.App}>
-        <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
+        <Aux>
+          <button onClick={() => {this.setState({showPersons: true})}}>Show Persons</button>
           <Cockpit
             appTitle={this.props.title}
             showPersons={this.state.showPersons}
             persons={this.state.persons}
+            login={this.loginHandler}
             clicked={this.togglePersonsHandler} />
-          { persons }
-        </div>
+            <AuthContext.Provider value={this.state.authenticated}>
+              { persons }
+            </AuthContext.Provider>
+        </Aux>
     )
     // what is happening under the hood: return React.createElement('div', {className: 'App'}, null, React.createElement('h1', null, 'Does this work now?'));
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
