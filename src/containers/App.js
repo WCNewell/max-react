@@ -20,7 +20,7 @@ export const AuthContext = React.createContext(false);
 // the whole idea behind this "container" is that it manages and manipulates the state
 // this is an example of a "stateful component"
 // access to state and lifecycle hooks
-// Access State an Props via "this"
+// Access State and Props via "this"
 
 class App extends PureComponent {
   constructor(props) {
@@ -72,7 +72,7 @@ class App extends PureComponent {
     console.log('[UPDATE App.js] Inside getSnapshotBeforeUpdate')
   }
 
-  // use to scroll user back to thier positino after new list items have been added
+  // use to scroll user back to thier position after new list items have been added
   componentDidUpdate() {
     console.log('[UPDATE App.js] Inside componentDidUpdate')
   }
@@ -103,8 +103,6 @@ class App extends PureComponent {
 
     const persons = [...this.state.persons];
     persons[personIndex] = person
-
-    this.setState( {persons: persons} )
 
     this.setState( {persons: persons} )
   }
