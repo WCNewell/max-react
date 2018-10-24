@@ -1,4 +1,4 @@
-This is a React learning project from the Udemy React course with Max Schwarzmueller. While a link to the full solution is given at the end of the course, I did follow every module and did the entire code-along. A working version of this project is deployed here:
+This is a React learning project from the Udemy React course with Max Schwarzmueller. While a link to the full solution is given at the end of the course, I followed every module and did the entire code-along. A working version of this project is deployed here:
 
 >http://dazzling-vase.surge.sh/
 
